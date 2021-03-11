@@ -1,65 +1,68 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import styles from "../styles/form.module.css";
+import { useState } from "react";
+import { API_USER_URL } from "../config/api-config";
+import { API_ENT_URL } from "../config/api-config";
+import axios from "axios";
 
 export default function Home() {
+  const [login, setLogin] = useState("");
+  const [senha, setSenha] = useState("");
+
+  function handle_submit(e) {
+    e.preventDefault();
+
+    axios
+      .post(API_USER_URL, {
+        identifier: login,
+        password: senha,
+      })
+      .then((response) => {
+        if (response.success) {
+          return {
+            redirect: {
+              destination: "/products",
+              permanent: false,
+            },
+          };
+        }
+      })
+      .catch((error) => {
+        // Handle error.
+        console.log("An error occurred:", error.response);
+      });
+  }
   return (
-    <div className={styles.container}>
+    <>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Aguas de Juturnaíba (ME)</title>S
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+      <div className={styles.formulario}>
+        <form>
+          <h1>Águas de Juturnaíba (ME)</h1>
+          <input
+            placeholder="Login"
+            value={login}
+            onChange={(e) => {
+              setLogin(e.target.value);
+            }}
+          />
+          <br />
+          <input
+            placeholder="Senha"
+            type="password"
+            value={senha}
+            onChange={(e) => {
+              setSenha(e.target.value);
+            }}
+          />
+          <br />
+          <button type="submit" onClick={handle_submit}>
+            Entrar
+          </button>
+        </form>
+      </div>
+    </>
+  );
 }

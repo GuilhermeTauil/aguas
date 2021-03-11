@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+
+
+.formulario {
+  text-align: center;
+  margin: 10% 20% 20% 20%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding:3%;
+  font-family: "Play";
+}
+
+.formulario button {
+  margin: 2%;
+  width: 25%;
+  border: none;
+  background-color:#0025E0;
+  color: white;
+  border-radius: 3px;
+}
+
+.formulario h1{
+    color: #0155FA;
+}
+.formulario input{
+    margin:0.3%;
+    border-top:none;
+
+    border-left:none;
+    border-right:none;
+}
+
+
+@media screen and (max-width:600px){
+    .formulario h1{
+        font-size: 150%;
+    }
+}
